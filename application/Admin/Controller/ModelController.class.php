@@ -42,8 +42,8 @@ class ModelController extends AdminbaseController {
         $str = "<tr id='node-\$id' \$parentid_node>
                     <td>\$id</td>
                     <td>\$title</td>
-                    <td>\$spacer\$name</td>
-                    <td>\$status</td>
+                    <td>\$name</td>
+                    <td>\$create_time</td>
                     <td>\$str_manage</td>
                 </tr>";
         $categorys = $tree->get_tree(0, $str);
