@@ -50,7 +50,7 @@
                         	<div class="row">
                                 <volist name=":parse_field_attr($info['field_group'])" id="vo">
                                 <script> nestables.push('nestable_list_{$key}')</script>
-                                <div class="span6">
+                                <div class="span4">
 									<div class="widget-box">
 										<div class="widget-header widget-header-flat">
 											<h5>{$vo}</h5>
@@ -58,16 +58,17 @@
 
 										<div class="widget-body">
 											<div class="widget-main">
-                                            <div class="dd" id="nestable_list_{$key}">
-                                                <ol class="dd-list"  data-group="{$key}">
-                                                <foreach name="fields" item="field" key="k">
-                                                    <if condition="(($field['group'] eq $key) or($i eq 1 and !isset($field['group']))) and ($field['is_show'] eq 1)">
-                                                        <li class="dd-item" data-id="{$field['id']}">
-                                                            <div class="dd-handle">{$field['title']} [{$field['name']}]<input type="hidden" name="field_sort[{$key}][]" value="{$field['id']}"/></div>
-                                                        </li>
-                                                    </if>
-                                                </foreach>
-                                                </ol>
+	                                            <div class="dd" id="nestable_list_{$key}"  data-group="{$key}">
+	                                                <ol class="dd-list">
+	                                                <foreach name="fields" item="field" key="k">
+	                                                    <if condition="(($field['group'] eq $key) or($i eq 1 and !isset($field['group']))) and ($field['is_show'] eq 1)">
+	                                                        <li class="dd-item" data-id="{$field['id']}">
+	                                                            <div class="dd-handle">{$field['title']} [{$field['name']}]<input type="hidden" name="field_sort[{$key}][]" value="{$field['id']}"/></div>
+	                                                        </li>
+	                                                    </if>
+	                                                </foreach>
+	                                                </ol>
+	                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -147,24 +148,35 @@
 		        } else {
 		            output.val('JSON browser support required for this demo.');
 		        }
+		        list.find('input').attr('name', 'field_sort[' + list.closest('div.dd').data('group') + '][]');
 		    };
 
 
 		    return {
+
+		    	_init:function(){
+		    		var $ols = $("ol.dd-list");
+
+		    		$ols.each(function(i,ol){
+		    			if( $(ol).children().length == 0){
+		    				$(ol).after("<div class='dd-empty'></div>").remove();
+		    			}
+		    		})
+		    	},
 		        //main function to initiate the module
 		        init: function () {
 
 		            // activate Nestable for list 1
 		            $('#nestable_list_1').nestable({
-		                group: 1
-		            })
-		                .on('change', updateOutput);
+		                group: 1,
+		                maxDepth:1
+		            }).on('change', updateOutput);
 
 		            // activate Nestable for list 2
 		            $('#nestable_list_2').nestable({
-		                group: 1
-		            })
-		                .on('change', updateOutput);
+		                group: 1,
+		                maxDepth:1
+		            }).on('change', updateOutput);
 
 		            // output initial serialised data
 		            updateOutput($('#nestable_list_1').data('output', $('#nestable_list_1_output')));
@@ -189,6 +201,7 @@
 
 		}();
 
+		UINestable._init();
 		UINestable.init();
 
 
