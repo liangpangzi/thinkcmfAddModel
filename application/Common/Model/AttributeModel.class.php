@@ -23,14 +23,21 @@ class AttributeModel extends CommonModel {
     /* 自动完成规则 */
     protected $_auto = array(
         array('status', 1, self::MODEL_INSERT, 'string'),
-        /* onethink 与 thinkcmf的时间字段储存方式不一致，后续专门处理
-    	array('create_time', 'time', self::MODEL_INSERT, 'function'),
-        array('update_time', 'time', self::MODEL_BOTH, 'function'),
-        */
+    	array('create_time', 'getCreateDate', self::MODEL_INSERT, 'callback'),
+        array('update_time', 'getUpdateDate', self::MODEL_BOTH, 'callback'),
     );
 
     /* 操作的表名 */
     protected $table_name = null;
+
+    protected function getCreateDate(){
+        $create_time    =   I('post.create_time');
+        return $create_time?$create_time:date('Y-m-d H:i:s');
+    }
+
+    protected function getUpdateDate(){
+        return date('Y-m-d H:i:s');
+    }
 
     /**
      * 新增或更新一个属性
@@ -209,12 +216,13 @@ sql;
     	$last_field = $this->getFieldById($field['id'], 'name');
 
     	//获取默认值
-    	$default = $field['value']!='' ? ' DEFAULT '.$field['value'] : '';
+    	$default = $field['value']!='' ? " DEFAULT '" .$field['value'] ."' ": '';
 
     	$sql = <<<sql
 			ALTER TABLE `{$this->table_name}`
 CHANGE COLUMN `{$last_field}` `{$field['name']}`  {$field['field']} {$default} COMMENT '{$field['title']}' ;
 sql;
+        //echo "$sql";exit;
     	$res = M()->execute($sql);
     	return $res !== false;
     }

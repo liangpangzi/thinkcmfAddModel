@@ -17,12 +17,22 @@ class ModelModel extends CommonModel{
     /* 自动完成规则 */
     protected $_auto = array(
     	array('name', 'strtolower', self::MODEL_INSERT, 'function'),
-        //array('create_time', NOW_TIME, self::MODEL_INSERT),
-        //array('update_time', NOW_TIME, self::MODEL_BOTH),
+        array('create_time', 'getCreateDate', self::MODEL_INSERT, 'callback'),
+        array('update_time', 'getUpdateDate', self::MODEL_BOTH, 'callback'),
         array('status', '1', self::MODEL_INSERT, 'string'),
     	array('field_sort', 'getFields', self::MODEL_BOTH, 'callback'),
     );
 
+
+    protected function getCreateDate(){
+        $create_time    =   I('post.create_time');
+        return $create_time?$create_time:date('Y-m-d H:i:s');
+    }
+
+    protected function getUpdateDate(){
+        return date('Y-m-d H:i:s');
+    }
+    
     /**
      * 新增或更新一个文档
      * @return boolean fasle 失败 ， int  成功 返回完整的数据
