@@ -1,0 +1,54 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('model/index')}">模型列表</a></li>
+			<li><a href="{:U('model/add')}">添加模型</a></li>
+			<li><a href="{:U('model/generate')}">生成模型</a></li>
+		</ul>
+
+		<table class="table table-hover table-bordered table-list" id="models-table">
+			<thead>
+				<tr>
+					<th width="50">ID</th>
+					<th>应用</th>
+					<th>菜单名称</th>
+					<th width="80">状态</th>
+					<th width="150">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{$categorys}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th width="50">ID</th>
+					<th>应用</th>
+					<th>菜单名称</th>
+					<th width="80">状态</th>
+					<th width="150">管理操作</th>
+				</tr>
+			</tfoot>
+		</table>
+</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script>
+		$(document).ready(function() {
+			Wind.css('treeTable');
+			Wind.use('treeTable', function() {
+				$("#models-table").treeTable({
+					indent : 20
+				});
+			});
+		});
+
+		setInterval(function() {
+			var refersh_time = getCookie('refersh_time_admin_model_index');
+			if (refersh_time == 1) {
+				reloadPage(window);
+			}
+		}, 1000);
+		setCookie('refersh_time_admin_model_index', 0);
+	</script>
+</body>
+</html>

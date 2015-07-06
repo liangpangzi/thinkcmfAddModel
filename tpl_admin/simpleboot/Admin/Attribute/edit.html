@@ -1,0 +1,188 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+    <link href="__ROOT__/statics/simpleboot/css/model_edit.css" rel="stylesheet">
+    <link href="__ROOT__/statics/plugins/jquery-nestable/jquery.nestable.css" rel="stylesheet">
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('attribute/index',array('model_id'=>$info['model_id']))}">字段列表</a></li>
+			<li class="active"><a href="{:U('menu/edit')}">编辑字段</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal J_ajaxForm" action="{:U('attribute/update')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">字段名</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="name" value="{$info.name}">
+							<span class="check-tips">（请输入字段名 英文字母开头，长度不超过30）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">字段标题</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="title" value="{$info.title}">
+							<span class="check-tips">（请输入字段标题，用于表单显示）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">字段类型</label>
+						<div class="controls">
+							<select name="type" id="data-type">
+								<option value="">----请选择----</option>
+								<volist name=":get_attribute_type()" id="type">
+								<option value="{$key}" rule="{$type[1]}">{$type[0]}</option>
+								</volist>
+							</select>
+							<span class="check-tips">（用于表单中的展示方式）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">字段定义</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="field" value="{$info.field}" id="data-field">
+							<span class="check-tips">（字段属性的sql表示）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">参数</label>
+						<div class="controls">
+							<textarea rows="5" cols="57" name="extra">{$info.extra}</textarea>
+							<span class="check-tips">（布尔、枚举、多选字段类型的定义数据）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">默认值</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="value" value="{$info.value}">
+							<span class="check-tips">（字段的默认值）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">字段备注</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="remark" value="{$info.remark}">
+							<span class="check-tips">(用于表单中的提示)</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否显示</label>
+						<div class="controls">
+							<select name="is_show">
+								<option value="1">始终显示</option>
+								<option value="2">新增显示</option>
+								<option value="3">编辑显示</option>
+								<option value="0">不显示</option>
+							</select>
+							<span class="check-tips">（是否显示在表单中）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否必填</label>
+						<div class="controls">
+							<select name="is_must">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<span class="check-tips">（用于自动验证）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">验证方式</label>
+						<div class="controls">
+							<select name="validate_type">
+								<option value="regex">正则验证</option>
+								<option value="function">函数验证</option>
+								<option value="unique">唯一验证</option>
+								<option value="length">长度验证</option>
+                                <option value="in">验证在范围内</option>
+                                <option value="notin">验证不在范围内</option>
+                                <option value="between">区间验证</option>
+                                <option value="notbetween">不在区间验证</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">验证规则</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="validate_rule" value="{$info.validate_rule}">
+							<span class="check-tips">（根据验证方式定义相关验证规则）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">出错提示</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="error_info" value="{$info.error_info}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">验证时间</label>
+						<div class="controls">
+							<select name="validate_time">
+                                <option value="3">始 终</option>
+								<option value="1">新 增</option>
+								<option value="2">编 辑</option>
+								</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">自动完成方式</label>
+						<div class="controls">
+							<select name="auto_type">
+								<option value="function">函数</option>
+								<option value="field">字段</option>
+								<option value="string">字符串</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">自动完成规则</label>
+						<div class="controls">
+							<input type="text" class="input length_5" name="auto_rule" value="{$info.auto_rule}">
+							<span class="check-tips">（根据完成方式订阅相关规则）</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">自动完成时间</label>
+						<div class="controls">
+							<select name="auto_time">
+								<option value="3">始 终</option>
+								<option value="1">新 增</option>
+								<option value="2">编 辑</option>
+							</select>
+						</div>
+					</div>
+
+
+				</fieldset>
+
+				<div class="form-actions">
+					<input type="hidden" name="id" value="{$info.id}" />
+					<input type="hidden" name="model_id" value="{$info['model_id']}"/>
+					<button type="submit"
+						class="btn btn-primary btn_submit  J_ajax_submit_btn">更新</button>
+					<a class="btn" href="__URL__">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script>
+
+	Think.setValue('type', "{$info.type|default=''}");
+	Think.setValue('is_show', "{$info.is_show|default=1}");
+	Think.setValue('is_must', "{$info.is_must|default=0}");
+	Think.setValue('validate_time', "{$info.validate_time|default=3}");
+	Think.setValue('auto_time', "{$info.auto_time|default=3}");
+	Think.setValue('validate_type', "{$info.validate_type|default='regex'}");
+	Think.setValue('auto_type', "{$info.auto_type|default='function'}");
+	
+	<eq name="ACTION_NAME" value="add">
+	$(function(){
+		$('#data-type').change(function(){
+			$('#data-field').val($(this).find('option:selected').attr('rule'));
+		});
+	})
+	</eq>
+	</script>
+</body>
+</html>

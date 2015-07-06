@@ -1,0 +1,59 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('model/index')}">模型列表</a></li>
+			<li class="active"><a href="{:U('model/add')}">添加模型</a></li>
+			<li><a href="{:U('model/generate')}">生成模型</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal J_ajaxForm" action="{:U('model/add_post')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">模型名称:</label>
+						<div class="controls">
+							<input type="text" class="input" name="title" value="">
+							<span class="must_red">*</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">模型标示:</label>
+						<div class="controls">
+							<input type="text" class="input" name="name" id="name" value="">
+							<span class="must_red">*</span>
+						</div>
+					</div>
+                    <div class="control-group">
+                        <label class="control-label">引擎类型</label>
+                        <div class="controls">
+	                        <select class="normal_select" name="engine_type">
+	                            <option value="MyISAM">MyISAM</option>
+	                            <option value="InnoDB">InnoDB</option>
+	                            <option value="MEMORY">MEMORY</option>
+	                            <option value="BLACKHOLE">BLACKHOLE</option>
+	                            <option value="MRG_MYISAM">MRG_MYISAM</option>
+	                            <option value="ARCHIVE">ARCHIVE</option>
+	                        </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">是否需要主键</label>
+                        <div class="controls">
+	                        <select class="normal_select" name="need_pk">
+	                            <option value="1" selected="selected">是</option>
+	                            <option value="0">否</option>
+	                        </select>
+	                        <span class="check-tips">（选"是"则会新建默认的id字段作为主键）</span>
+                        </div>
+                    </div>
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn_submit  J_ajax_submit_btn">添加</button>
+					<a class="btn" href="__URL__">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

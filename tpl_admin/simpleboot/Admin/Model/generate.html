@@ -1,0 +1,32 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+    <div class="wrap jj">
+        <ul class="nav nav-tabs">
+            <li><a href="{:U('model/index')}">模型列表</a></li>
+            <li><a href="{:U('model/add')}">添加模型</a></li>
+            <li class="active"><a href="{:U('model/generate')}">生成模型</a></li>
+        </ul>
+        <div class="common-form">
+            <form method="post" class="form-horizontal J_ajaxForm" action="{:U('model/generate')}">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label">引擎类型</label>
+                        <div class="controls">
+                            <select class="normal_select" name="table">
+                            <volist name="tables" id="tb">
+                                <option value="{$tb}">{$tb}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn_submit  J_ajax_submit_btn">添加</button>
+                    <a class="btn" href="__URL__">返回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>
