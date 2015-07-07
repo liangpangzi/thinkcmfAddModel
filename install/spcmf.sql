@@ -743,7 +743,8 @@ INSERT INTO `sp_auth_rule` VALUES(158, 'Admin', 'admin_url', 'admin/slide/ban', 
 INSERT INTO `sp_auth_rule` VALUES(159, 'Admin', 'admin_url', 'admin/slide/cancelban', NULL, '启用幻灯片', 1, '');
 INSERT INTO `sp_auth_rule` VALUES(160, 'Admin', 'admin_url', 'admin/user/ban', NULL, '禁用管理员', 1, '');
 INSERT INTO `sp_auth_rule` VALUES(161, 'Admin', 'admin_url', 'admin/user/cancelban', NULL, '启用管理员', 1, '');
-
+INSERT INTO `sp_auth_rule` VALUES(162, 'Admin', 'admin_url', 'admin/model/default', NULL, '模型管理', 1, '');
+INSERT INTO `sp_auth_rule` VALUES(163, 'Admin', 'admin_url', 'admin/model/index', NULL, '模型列表', 1, '');
 -- 
 -- 导出表中的数据 `sp_links`
 -- 
